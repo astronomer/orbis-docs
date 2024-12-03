@@ -2,6 +2,11 @@
 
 ## 1. Docker (Recommended)
 
+!!! note
+
+    Docker images are currently in beta.
+
+
 The recommended way to run Orbis is using Docker. This ensures consistent behavior across different environments and simplifies the setup process.
 
 ### Prerequisites
@@ -26,9 +31,9 @@ ORG_ID=your_org_id
 
 ## 2. Orbis CLI Binary
 
-!!! note
+!!! warning
 
-    Binaries are currently in beta.
+    Binaries are currently experimental.
 
 If you prefer to run Orbis directly on your system, you can request the binary package from Astronomer. We provide pre-built binaries for:
 
