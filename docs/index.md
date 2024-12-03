@@ -1,13 +1,13 @@
 # Orbis - Astronomer Software Deployment Compute Report Generator
 
-Orbis is a powerful deployment compute report generator tool that analyzes data from Astronomer Software to provide insights into deployment metrics and resource utilization.
+Orbis is a deployment compute report generator tool that analyzes data from Astronomer Software to provide insights into deployment metrics and resource utilization.
 
 ## Key Features
 
 - Comprehensive deployment metrics analysis
 - Resource utilization tracking
 - Custom resource allocation support
-- Detailed PDF report generation
+- PDF report generation
 - Docker-based deployment for easy setup
 
 ## Quick Start with Docker (Recommended)

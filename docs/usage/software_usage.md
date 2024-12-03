@@ -116,10 +116,10 @@ docker run --pull always --rm -it \
 
 ## Output
 
-The command generates a detailed PDF report in the `output` directory with:
+The command generates a comprehensive PDF report in the `output` directory with metrics as below for the given duration:
 
-- CPU usage metrics
-- Memory usage metrics
-- Task success metrics
-- Task processing trend
-- Worker performance statistics
+- Scheduler CPU and Memory
+- Worker CPU and Memory
+- KPO’s CPU and Memory
+- Task Trends
+- Worker (_Celery/Kubernetes_) Pod Counts
