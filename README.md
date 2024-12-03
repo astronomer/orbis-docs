@@ -1,6 +1,6 @@
 # Orbis Documentation
 <div style="text-align:center">
-   <img src="../docs/assets/orbis_logo.svg" width="50%" alt="Orbis Logo">
+   <img src="docs/assets/orbis_logo.svg" width="50%" alt="Orbis Logo">
 </div>
 
 Orbis is a reporting tool designed for Astronomer Software that provides detailed insights into your Apache Airflow deployments. It collects and analyzes metrics to help you understand resource utilization, performance patterns, and system health.
