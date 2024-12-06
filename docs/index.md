@@ -12,6 +12,10 @@ Orbis is a deployment compute report generator tool that analyzes data from Astr
 
 ## Quick Start with Docker (Recommended)
 
+!!! warning
+
+    Docker images are yet to be released. Will be available soon.
+
 ```bash
 # Pull the latest version
 docker pull quay.io/astronomer/orbis:0.5.0
@@ -29,11 +33,17 @@ docker run --pull always --rm -it \
 ## Documentation Sections
 
 - [Installation](installation.md)
-- [Configuration](configuration.md)
 - [Usage Guide](usage/software_usage.md)
-- [CLI Reference](cli.md)
-- [Contributing](contributing.md)
-- [Changelog](changelog.md)
+- Modules
+    - API
+        - [Houston](modules/api/houston.md)
+        - [Prometheus](modules/api/prometheus.md)
+    - Report
+        - [Generator](modules/report/generator.md)
+        - [Visualizer](modules/report/visualizer.md)
+        - [CSV Generator](modules/report/csv_generator.md)
+    - [Data Models](modules/data_models.md)
+- [Reports](reports.md)
 
 ## Support
 

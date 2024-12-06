@@ -47,49 +47,49 @@ This document details all the Prometheus queries used by Orbis to collect metric
 
 ```promql
 # Scheduler CPU usage rate over 5-minute intervals
-rate(container_cpu_usage_seconds_total{namespace="optical-illusion-5432", container="scheduler"}[5m])
+rate(container_cpu_usage_seconds_total{namespace="astronomer-optical-illusion-5432", container="scheduler"}[5m])
 
 # Scheduler memory usage in gigabytes
-max(container_memory_working_set_bytes{namespace="optical-illusion-5432", container="scheduler"}) by (pod)
+max(container_memory_working_set_bytes{namespace="astronomer-optical-illusion-5432", container="scheduler"}) by (pod)
 /(1024 * 1024 *1024)
 
 # Total count of successful task instances
-sum(airflow_ti_successes{release="astronomer-optical-illusion-5432"})
+sum(airflow_ti_successes{release="optical-illusion-5432"})
 
 # Total count of failed task instances
-sum(airflow_ti_failures{release="astronomer-optical-illusion-5432"})
+sum(airflow_ti_failures{release="optical-illusion-5432"})
 
 # Hourly increase in successful tasks
-max(round(increase(airflow_ti_successes{release="astronomer-optical-illusion-5432"}[1h])))
+max(round(increase(airflow_ti_successes{release="optical-illusion-5432"}[1h])))
 
 # Hourly increase in failed tasks
-max(round(increase(airflow_ti_failures{release="astronomer-optical-illusion-5432"}[1h])))
+max(round(increase(airflow_ti_failures{release="optical-illusion-5432"}[1h])))
 
 # Celery workers CPU usage rate over 5-minute intervals
-rate(container_cpu_usage_seconds_total{namespace="optical-illusion-5432", container="worker", pod=~"astronomer-optical-illusion-5432-worker-.*"}[5m])
+rate(container_cpu_usage_seconds_total{namespace="astronomer-optical-illusion-5432", container="worker", pod=~"astronomer-optical-illusion-5432-worker-.*"}[5m])
 
 # Celery workers memory usage in gigabytes
-max(container_memory_working_set_bytes{namespace="optical-illusion-5432", container="worker", pod=~"astronomer-optical-illusion-5432-worker-.*"}) by (pod)
+max(container_memory_working_set_bytes{namespace="astronomer-optical-illusion-5432", container="worker", pod=~"astronomer-optical-illusion-5432-worker-.*"}) by (pod)
 /(1024 * 1024 *1024)
 
 # Count of Celery worker pods
-count(kube_pod_info{namespace="optical-illusion-5432", pod=~"astronomer-optical-illusion-5432-worker-.*"})
+count(kube_pod_info{namespace="astronomer-optical-illusion-5432", pod=~"astronomer-optical-illusion-5432-worker-.*"})
 
 # Kubernetes Pod Operator CPU usage
 sum(
-  kube_pod_labels{label_airflow_kpo_in_cluster="True",namespace="optical-illusion-5432"}
+  kube_pod_labels{label_airflow_kpo_in_cluster="True",namespace="astronomer-optical-illusion-5432"}
   * on (pod) group_left()
   sum by (pod) (
-    rate(container_cpu_usage_seconds_total{namespace="optical-illusion-5432",pod!~"astronomer-optical-illusion-5432-.*"}[5m])
+    rate(container_cpu_usage_seconds_total{namespace="astronomer-optical-illusion-5432",pod!~"astronomer-optical-illusion-5432-.*"}[5m])
   )
 )
 
 # Kubernetes Pod Operator memory usage in gigabytes
 sum(
-  kube_pod_labels{label_airflow_kpo_in_cluster="True",namespace="optical-illusion-5432"}
+  kube_pod_labels{label_airflow_kpo_in_cluster="True",namespace="astronomer-optical-illusion-5432"}
   * on (pod) group_left()
   max by (pod) (
-    container_memory_working_set_bytes{namespace="optical-illusion-5432",pod!~"astronomer-optical-illusion-5432-.*"}
+    container_memory_working_set_bytes{namespace="astronomer-optical-illusion-5432",pod!~"astronomer-optical-illusion-5432-.*"}
   )
 )/(1024 * 1024 *1024)
 ```
