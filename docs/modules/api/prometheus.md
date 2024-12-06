@@ -97,6 +97,7 @@ sum(
 ## Metric Aggregation
 
 For each metric, we calculate the following aggregations:
+
 - Minimum value
 - Maximum value
 - Mean value
