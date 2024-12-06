@@ -60,10 +60,16 @@ nav:
   - Installation: installation.md
   - Usage:
     - Astronomer Software: usage/software_usage.md
-  - API:
-    - Prometheus: api/prometheus.md
-    - Houston: api/houston.md
-  - Reports: reports.md
+  - Modules:
+    - API:
+      - Houston: modules/api/houston.md
+      - Prometheus: modules/api/prometheus.md
+    - Report:
+      - Generator: modules/report/generator.md
+      - Visualizer: modules/report/visualizer.md
+      - CSV Generator: modules/report/csv_generator.md
+    - Models: modules/data_models.md
+  - Reports: modules/reports.md
 
 plugins:
   - search
