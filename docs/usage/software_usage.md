@@ -11,9 +11,6 @@ This guide explains how to use Orbis to generate compute reports for Astronomer 
 
 ## Using Docker (Recommended)
 
-!!! warning
-
-    Docker images are yet to be released. Will be available soon.
 
 1. Create a `.env` file with your configuration:
    ```env
