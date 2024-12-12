@@ -21,7 +21,6 @@ Create a `.env` file with your configuration:
 
 ```
 ASTRO_SOFTWARE_API_TOKEN=your_token_here
-ORG_ID=your_org_id
 ```
 
 
