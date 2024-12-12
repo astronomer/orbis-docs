@@ -68,7 +68,7 @@ This guide explains how to use Orbis to generate compute reports for Astronomer 
         </tr>
         <tr>
             <td><code>-e, --end_date</code></td>
-            <td>End date for the report in UTC [format: YYYY-MM-DD] <i>(End date is not inclusive. Example for report till 12th Dec 2024 use 2024-13-31)</i></td>
+            <td>End date for the report in UTC [format: YYYY-MM-DD] <i>(End date is not inclusive. Example for report till 12th Dec 2024 use 2024-12-13)</i></td>
         </tr>
         <tr>
             <td><code>-o, --organization_id</code></td>
