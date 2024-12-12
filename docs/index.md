@@ -12,20 +12,22 @@ Orbis is a deployment compute report generator tool that analyzes data from Astr
 
 ## Quick Start with Docker (Recommended)
 
+1. Create a `.env` file with your configuration:
+   ```env
+   ASTRO_SOFTWARE_API_TOKEN=your_token_here
+   ```
 
-```bash
-# Pull the latest version
-docker pull quay.io/astronomer/orbis:0.5.0
-
-# Run with environment variables
-docker run --pull always --rm -it \
-  --env-file .env \
-  -v $(pwd)/output:/app/output \
-  quay.io/astronomer/orbis:0.5.0 orbis compute-software \
-  -s START_DATE \
-  -e END_DATE \
-  -o ORGANIZATION_ID
-```
+2. Run Orbis using Docker:
+   ```bash
+   docker run --pull always --rm -it \
+     --env-file .env \
+     -v $(pwd)/output:/app/output \
+     quay.io/astronomer/orbis:0.5.0 orbis compute-software \
+     -s START_DATE \
+     -e END_DATE \
+     -o ORGANIZATION_ID \
+     [-v] [-w WORKSPACES] [-z] [-r] [-p]
+   ```
 
 ## Documentation Sections
 

@@ -14,7 +14,7 @@ This guide explains how to use Orbis to generate compute reports for Astronomer 
 
 1. Create a `.env` file with your configuration:
    ```env
-   HOUSTON_API_TOKEN=your_token_here
+   ASTRO_SOFTWARE_API_TOKEN=your_token_here
    ```
 
 2. Run Orbis using Docker:
@@ -35,7 +35,7 @@ This guide explains how to use Orbis to generate compute reports for Astronomer 
 
 1. Create a `.env` file with your configuration:
    ```env
-   HOUSTON_API_TOKEN=your_token_here
+   ASTRO_SOFTWARE_API_TOKEN=your_token_here
    ```
 
 2. Run Orbis using the Orbis CLI:

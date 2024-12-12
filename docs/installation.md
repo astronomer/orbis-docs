@@ -2,10 +2,6 @@
 
 ## 1. Docker (Recommended)
 
-!!! note
-
-    Docker images are currently in beta.
-
 
 The recommended way to run Orbis is using Docker. This ensures consistent behavior across different environments and simplifies the setup process.
 
@@ -24,7 +20,7 @@ docker pull quay.io/astronomer/orbis:0.5.0
 Create a `.env` file with your configuration:
 
 ```
-HOUSTON_API_TOKEN=your_token_here
+ASTRO_SOFTWARE_API_TOKEN=your_token_here
 ORG_ID=your_org_id
 ```
 
