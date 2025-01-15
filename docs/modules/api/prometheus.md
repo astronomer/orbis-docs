@@ -92,6 +92,40 @@ sum(
     container_memory_working_set_bytes{namespace="astronomer-optical-illusion-5432",pod!~"astronomer-optical-illusion-5432-.*"}
   )
 )/(1024 * 1024 *1024)
+
+# Kubernetes Executor CPU usage
+sum(
+  (kube_pod_labels{{label_airflow_worker!="",namespace="astronomer-optical-illusion-5432"}}
+  * on (pod) group_left()
+  sum by (pod) (
+    rate(
+      container_cpu_usage_seconds_total{{namespace="astronomer-optical-illusion-5432",pod!~"optical-illusion-5432-worker-.*"}}[5m]
+    )
+  ))
+or
+  (kube_pod_labels{{label_airflow_kpo_in_cluster="True",namespace="astronomer-optical-illusion-5432"}}
+  * on (pod) group_left()
+  sum by (pod) (
+    rate(
+      container_cpu_usage_seconds_total{{namespace="astronomer-optical-illusion-5432",pod!~"optical-illusion-5432-worker-.*"}}[5m]
+    )
+  ))
+)
+
+# Kubernetes Executor memory usage in gigabytes
+sum(
+  (kube_pod_labels{{label_airflow_worker!="",namespace="astronomer-optical-illusion-5432"}}
+  * on (pod) group_left()
+  sum by (pod) (
+    container_memory_working_set_bytes{{container!="",image!="",namespace="astronomer-optical-illusion-5432"}}
+  ))
+or
+  (kube_pod_labels{{label_airflow_kpo_in_cluster="True",namespace="astronomer-optical-illusion-5432"}}
+  * on (pod) group_left()
+  sum by (pod) (
+    container_memory_working_set_bytes{{container!="",image!="",namespace="astronomer-optical-illusion-5432"}}
+  ))
+)/(1024 * 1024 * 1024)
 ```
 
 ## Metric Aggregation
