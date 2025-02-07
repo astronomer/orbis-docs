@@ -8,7 +8,7 @@ assignees: ''
 
 ## Orbis Version
 <!-- Please specify the version of Orbis you're using -->
-- Version: [e.g. 0.5.0]
+- Version: [e.g. 0.6.0]
 
 ## What Happened
 <!-- A clear and concise description of what happened -->

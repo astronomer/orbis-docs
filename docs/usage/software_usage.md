@@ -5,7 +5,7 @@ This guide explains how to use Orbis to generate compute reports for Astronomer 
 ## Prerequisites
 
 1. Docker installed (recommended)
-2. Houston API token with SYSTEM_ADMIN role
+2. Houston API token with SYSTEM_ADMIN role (or WORKSPACE_ADMIN role if only 1 workspace is specified)
 3. Organization domain for Astronomer Software
 4. Start and end dates for the report period
 
@@ -22,7 +22,7 @@ This guide explains how to use Orbis to generate compute reports for Astronomer 
    docker run --pull always --rm -it \
      --env-file .env \
      -v $(pwd)/output:/app/output \
-     quay.io/astronomer/orbis:0.5.0 orbis compute-software \
+     quay.io/astronomer/orbis:0.6.0 orbis compute-software \
      -s START_DATE \
      -e END_DATE \
      -o ORGANIZATION_ID \
@@ -108,7 +108,7 @@ This guide explains how to use Orbis to generate compute reports for Astronomer 
 docker run --pull always --rm -it \
   --env-file .env \
   -v $(pwd)/output:/app/output \
-  quay.io/astronomer/orbis:0.5.0 orbis compute-software \
+  quay.io/astronomer/orbis:0.6.0 orbis compute-software \
   -s 2024-01-01 \
   -e 2024-01-31 \
   -o org-abcd1234 \

@@ -6,7 +6,7 @@ The Report Generator module is responsible for creating comprehensive deployment
 
 This function orchestrates the entire report generation process:
 
-1. Fetches data from Chronosphere for specified metrics and namespaces using `get_data_from_chronosphere_and_plot`.
+1. Fetches data from Chronosphere for specified metrics and namespaces using `get_metrics_data_and_plot`.
 2. Processes data and generates visualizations (figures) for each metric.
 3. Creates an overall report structure containing detailed information for each namespace.
 4. Generates a Word document report using the `ReportGenerator` class.

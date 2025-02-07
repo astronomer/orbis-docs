@@ -9,12 +9,13 @@ The recommended way to run Orbis is using Docker. This ensures consistent behavi
 
 1. Install [Docker](https://docs.docker.com/get-docker/)
 2. Ensure you have a valid Houston API token (with `SYSTEM_ADMIN` role) for authentication
+   (_If only 1 workspace is specified, then you can use `WORKSPACE_ADMIN` token instead_)
 
 ### Docker Setup
 
 ```bash
 # Pull the latest version
-docker pull quay.io/astronomer/orbis:0.5.0
+docker pull quay.io/astronomer/orbis:0.6.0
 ```
 
 Create a `.env` file with your configuration:
@@ -46,7 +47,7 @@ Please contact your Astronomer representative to obtain the appropriate binary f
 
 After installation, you'll need to configure Orbis with your credentials. You will need:
 
-1. A valid Houston API token (with `SYSTEM_ADMIN` role)
+1. A valid Houston API token (with `SYSTEM_ADMIN` role) (Or `WORKSPACE_ADMIN` token if only 1 workspace is specified)
 2. Your Organization ID
 3. The reporting period (start and end dates)
 

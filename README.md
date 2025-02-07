@@ -16,13 +16,13 @@ Orbis is a reporting tool designed for Astronomer Software that provides detaile
 
 ```bash
 # Pull the latest version
-docker pull quay.io/astronomer/orbis:0.5.0
+docker pull quay.io/astronomer/orbis:0.6.0
 
 # Run with environment variables
 docker run --pull always --rm -it \
   --env-file .env \
   -v $(pwd)/output:/app/output \
-  quay.io/astronomer/orbis:0.5.0 orbis compute-software \
+  quay.io/astronomer/orbis:0.6.0 orbis compute-software \
   -s START_DATE \
   -e END_DATE \
   -o ORGANIZATION_ID
