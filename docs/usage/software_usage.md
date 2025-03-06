@@ -115,6 +115,39 @@ docker run --pull always --rm -it \
   -v
 ```
 
+## Generate System Admin Level API Token
+
+- Go to `https://houston.<organization_domain>/v1`.
+- Execute the following query to get create the SYSTEM_ADMIN service account and API token.
+    ```graphql
+    mutation create_system_service_account {
+        createSystemServiceAccount(label: "serv-acc", role: SYSTEM_ADMIN){
+                apiKey
+            roleBindings{
+                role
+            }
+        }
+    }
+    ```
+
+    Sample Response:
+    ```json
+    {
+        "data": {
+            "createSystemServiceAccount": {
+                "apiKey": "<GENERATED_TOKEN>",
+                "roleBindings": [
+                    {
+                        "role": "SYSTEM_ADMIN"
+                    }
+                ]
+            }
+        }
+    }
+    ```
+
+- Add the API token to the `.env` file `ASTRO_SOFTWARE_API_TOKEN=<GENERATED_TOKEN>`
+
 ## Output
 
 The command generates a comprehensive PDF report in the `output` directory with metrics as below for the given duration:
