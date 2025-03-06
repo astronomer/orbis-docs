@@ -15,7 +15,7 @@ The recommended way to run Orbis is using Docker. This ensures consistent behavi
 
 ```bash
 # Pull the latest version
-docker pull quay.io/astronomer/orbis:0.6.1
+docker pull quay.io/astronomer/orbis:0.7.0
 ```
 
 Create a `.env` file with your configuration:
