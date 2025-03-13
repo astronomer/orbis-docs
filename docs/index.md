@@ -16,6 +16,9 @@ Orbis is a deployment compute report generator tool that analyzes data from Astr
    ```env
    ASTRO_SOFTWARE_API_TOKEN=your_token_here
    ```
+!!! warning
+
+       Please use `SYSTEM_ADMIN` level token otherwise Orbis won't be able to query Prometheus and will result in empty metrics. [Ref](usage/software_usage.md#generate-system-admin-level-api-token)
 
 2. Run Orbis using Docker:
    ```bash

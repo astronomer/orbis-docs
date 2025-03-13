@@ -117,6 +117,7 @@ docker run --pull always --rm -it \
 
 ## Generate System Admin Level API Token
 
+- Orbis won't be able to query Prometheus without the SYSTEM_ADMIN token.
 - Go to `https://houston.<organization_domain>/v1`.
 - Execute the following query to get create the SYSTEM_ADMIN service account and API token.
     ```graphql
