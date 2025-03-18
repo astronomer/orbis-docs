@@ -1,6 +1,6 @@
 # Houston API Integration
 
-The `houston.py` module is a crucial component of Orbis, leveraging the [Houston API](https://www.astronomer.io/docs/software/houston-api) to retrieve essential deployment information. This module provides a comprehensive interface to gather metadata about an organization, its workspaces and deployments, which is fundamental for targeted metric collection.
+The `houston.py` module is a crucial component of Orbis, leveraging the [Houston API](https://www.astronomer.io/docs/software/houston-api) to retrieve essential deployment information. This module provides a comprehensive interface to gather metadata about an BASEDOMAIN, its workspaces and deployments, which is fundamental for targeted metric collection.
 
 ## Key Components
 
@@ -9,26 +9,25 @@ The `houston.py` module is a crucial component of Orbis, leveraging the [Houston
 This class encapsulates all interactions with the [Houston API](https://www.astronomer.io/docs/software/houston-api):
 
 - Handles authentication and request headers
-- Provides methods for various API endpoints (deployments, organization, workspaces)
+- Provides methods for various API endpoints (base_domain, workspaces, deployments)
 - Implements error handling and response validation
 
 ### Utility Functions
 
 Several utility functions build upon the CoreAPI class to provide higher-level functionality:
 
-- `get_organization_metadata`: Retrieves organization name and associated namespaces
+- `get_organization_metadata`: Retrieves BASEDOMAIN and associated namespaces
 - `get_cluster_wise_deployments`: Groups deployments by clusters
 - `get_deployment_wise_queues`: Fetches detailed information about worker queues for each deployment
 
-## Leveraging Astro API for Deployment Data
+## Leveraging Houston API for Deployment Data
 
 The module efficiently utilizes the Astro API to gather comprehensive deployment information:
 
-1. **Organization-Level Data**:
-    - Retrieves all deployments associated with an organization
-    - Fetches organization metadata
-    - Retrieves a list of all namespaces within the organization
-    - Obtains workspace details for an organization
+1. **Cluter-Level Data**:
+    - Fetches BASEDOMAIN metadata
+    - Retrieves a list of all namespaces within the cluster
+    - Obtains workspace details for a cluster
     - Groups deployments by their associated worksapces
     - Gathers detailed metadata for each deployment
     - Extracts information about executor type, scheduler configuration, and worker queues
@@ -63,4 +62,4 @@ This module plays a vital role in Orbis's operation:
 2. The deployment configurations retrieved are used to populate the `DeploymentConfig` and `WorkerQueueStats` models.
 3. This information guides the metric collection process in `prometheus.py` and the report generation in `generator.py`.
 
-By leveraging the [Houston API](https://www.astronomer.io/docs/software/houston-api), Orbis can dynamically adapt to the current state of an organization's Software deployments, ensuring accurate and relevant metric collection and reporting.
+By leveraging the [Houston API](https://www.astronomer.io/docs/software/houston-api), Orbis can dynamically adapt to the current state of a Software deployment, ensuring accurate and relevant metric collection and reporting.
