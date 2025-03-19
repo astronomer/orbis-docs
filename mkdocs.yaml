@@ -73,7 +73,14 @@ nav:
 
 plugins:
   - search
-
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            extra:
+              setup_commands:
+                - import sys
+                - sys.path.append("src")
 markdown_extensions:
   - abbr
   - admonition
