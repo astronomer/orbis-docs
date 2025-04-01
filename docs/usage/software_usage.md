@@ -98,6 +98,10 @@ This guide explains how to use Orbis to generate compute reports for Astronomer 
             <td><code>-u, --url</code></td>
             <td>Pre-signed URL (in quotes) to upload report [Optional]</td>
         </tr>
+        <tr>
+            <td><code>--verify-ssl</code></td>
+            <td>Enable or disable SSL verification for requests. Default is <code>True</code>. Set to <code>False</code> when using self-signed certificates [optional]</td>
+        </tr>
     </tbody>
 </table>
 </div>
