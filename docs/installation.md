@@ -2,20 +2,17 @@
 
 ## 1. Docker (Recommended)
 
-
 The recommended way to run Orbis is using Docker. This ensures consistent behavior across different environments and simplifies the setup process.
 
 ### Prerequisites
 
 1. Install [Docker](https://docs.docker.com/get-docker/)
-2. Ensure you have a valid Houston API token (with `SYSTEM_ADMIN` role) for authentication
-   (_If only 1 workspace is specified, then you can use `WORKSPACE_ADMIN` token instead_)
 
 ### Docker Setup
 
 ```bash
 # Pull the latest version
-docker pull quay.io/astronomer/orbis:0.7.0
+docker pull quay.io/astronomer/orbis:0.8.0
 ```
 
 Create a `.env` file with your configuration:
@@ -24,32 +21,65 @@ Create a `.env` file with your configuration:
 ASTRO_SOFTWARE_API_TOKEN=your_token_here
 ```
 
+## 2. Python Installation (Development)
 
-## 2. Orbis CLI Binary
+!!! note "Python Requirements"
 
-!!! warning
+    Orbis 0.8.0 requires Python 3.10 or higher.
 
-    Binaries are currently experimental.
+For development or local installation:
 
-If you prefer to run Orbis directly on your system, you can request the binary package from Astronomer. We provide pre-built binaries for:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/astronomer/orbis.git
+   cd orbis
+   ```
 
-- Linux (x86_64)
-- macOS (x86_64, arm64)
-- Windows (x86_64)
+2. Create and activate a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
 
-Please contact your Astronomer representative to obtain the appropriate binary for your platform. They will provide you with:
+3. Install with development dependencies:
+   ```bash
+   pip install -e ".[dev]"
+   ```
 
-1. The binary package for your operating system
-2. Instructions for setting up environment variables
-3. Any additional configuration requirements
+## 3. Astral `uv`
+
+### Prerequisites
+
+1. Install [uv](https://docs.astral.sh/uv/getting-started/installation/).
+
+### Command
+```bash
+uvx --from astronomer-orbis orbis
+```
+
+## Chrome/Chromium Setup for Image Generation
+
+Orbis uses Kaleido 1.0+ for generating static images from plots, which requires Chrome or Chromium to be installed on your system.
+
+**Linux:**
+```bash
+sudo apt-get install chromium-browser
+export BROWSER_PATH=/usr/bin/chromium-browser
+```
+
+**macOS:**
+```bash
+brew install --cask google-chrome
+export BROWSER_PATH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+```
+
+**Windows:**
+Install [Google Chrome](https://www.google.com/chrome/) and set:
+```cmd
+set BROWSER_PATH="C:\Program Files\Google\Chrome\Application\chrome.exe"
+```
 
 ## Configuration
 
-After installation, you'll need to configure Orbis with your credentials. You will need:
-
-1. A valid Houston API token (with `SYSTEM_ADMIN` role) (Or `WORKSPACE_ADMIN` token if only 1 workspace is specified)
-2. Your Organization ID
-3. The reporting period (start and end dates)
-
-See the [Usage Guide](usage/software_usage.md) for detailed setup instructions.
+After installation, you'll need to configure Orbis with your credentials and configuration. See the [Software Reports](usage/software_reports.md) usage guide for detailed setup instructions.
 

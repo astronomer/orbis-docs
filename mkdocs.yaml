@@ -59,7 +59,8 @@ nav:
   - Home: index.md
   - Installation: installation.md
   - Usage:
-    - Astronomer Software: usage/software_usage.md
+    - Software Reports: usage/software_reports.md
+    - Software Diagnostics: usage/software_diagnostics.md
   - Modules:
     - API:
       - Houston: modules/api/houston.md

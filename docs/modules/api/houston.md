@@ -9,7 +9,7 @@ The `houston.py` module is a crucial component of Orbis, leveraging the [Houston
 This class encapsulates all interactions with the [Houston API](https://www.astronomer.io/docs/software/houston-api):
 
 - Handles authentication and request headers
-- Provides methods for various API endpoints (base_domain, workspaces, deployments)
+- Provides methods for various API endpoints (basedomain, workspaces, deployments)
 - Implements error handling and response validation
 
 ### Utility Functions

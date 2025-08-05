@@ -1,13 +1,52 @@
-# Orbis Usage Guide for Software
+# Orbis Reports for Software
 
 This guide explains how to use Orbis to generate compute reports for Astronomer Software deployments.
 
 ## Prerequisites
 
 1. Docker installed (recommended)
-2. Houston API token with SYSTEM_ADMIN role (or WORKSPACE_ADMIN role if only 1 workspace is specified)
-3. Organization domain for Astronomer Software
+2. API token with `SYSTEM_ADMIN` role.
+
+!!! warning
+
+       Please use `SYSTEM_ADMIN` level token otherwise Orbis won't be able to query Prometheus and will result in empty metrics. [Ref](usage/software_reports.md#generate-system-admin-level-api-token)
+
+3. Basedomain for Astronomer Software
 4. Start and end dates for the report period
+
+## Generate System Admin Level API Token
+
+- Orbis won't be able to query Prometheus without the SYSTEM_ADMIN token.
+- Go to `https://houston.<organization_domain>/v1/playground`.
+- Execute the following query to get create the SYSTEM_ADMIN service account and API token.
+    ```graphql
+    mutation create_system_service_account {
+        createSystemServiceAccount(label: "serv-acc", role: SYSTEM_ADMIN){
+                apiKey
+            roleBindings{
+                role
+            }
+        }
+    }
+    ```
+
+    Sample Response:
+    ```json
+    {
+        "data": {
+            "createSystemServiceAccount": {
+                "apiKey": "<GENERATED_TOKEN>",
+                "roleBindings": [
+                    {
+                        "role": "SYSTEM_ADMIN"
+                    }
+                ]
+            }
+        }
+    }
+    ```
+
+- Add the API token to the `.env` file `ASTRO_SOFTWARE_API_TOKEN=<GENERATED_TOKEN>`
 
 ## Using Docker (Recommended)
 
@@ -22,10 +61,10 @@ This guide explains how to use Orbis to generate compute reports for Astronomer 
    docker run --pull always --rm -it \
      --env-file .env \
      -v $(pwd)/output:/app/output \
-     quay.io/astronomer/orbis:0.7.0 orbis compute-software \
+     quay.io/astronomer/orbis:0.8.0 orbis compute-software \
      -s START_DATE \
      -e END_DATE \
-     -o ORGANIZATION_ID \
+     -b BASE_DOMAIN \
      [-v] [-w WORKSPACES] [-z] [-r] [-p]
    ```
 
@@ -43,7 +82,7 @@ This guide explains how to use Orbis to generate compute reports for Astronomer 
    orbis compute-software \
      -s START_DATE \
      -e END_DATE \
-     -o ORGANIZATION_ID \
+     -b BASE_DOMAIN \
      [-v] [-w WORKSPACES] [-z] [-r] [-p]
    ```
 
@@ -71,8 +110,8 @@ This guide explains how to use Orbis to generate compute reports for Astronomer 
             <td>End date for the report in UTC [format: YYYY-MM-DD] <i>(End date is not inclusive. Example for report till 12th Dec 2024 use 2024-12-13)</i></td>
         </tr>
         <tr>
-            <td><code>-o, --organization_id</code></td>
-            <td>Astronomer organization domain</td>
+            <td><code>-b, --base_domain</code></td>
+            <td>Base Domain</td>
         </tr>
         <tr>
             <td><code>-v, --verbose</code></td>
@@ -112,53 +151,19 @@ This guide explains how to use Orbis to generate compute reports for Astronomer 
 docker run --pull always --rm -it \
   --env-file .env \
   -v $(pwd)/output:/app/output \
-  quay.io/astronomer/orbis:0.7.0 orbis compute-software \
+  quay.io/astronomer/orbis:0.8.0 orbis compute-software \
   -s 2024-01-01 \
   -e 2024-01-31 \
-  -o org-abcd1234 \
+  -b example.astronomer.io \
   -v
 ```
 
-## Generate System Admin Level API Token
-
-- Orbis won't be able to query Prometheus without the SYSTEM_ADMIN token.
-- Go to `https://houston.<organization_domain>/v1`.
-- Execute the following query to get create the SYSTEM_ADMIN service account and API token.
-    ```graphql
-    mutation create_system_service_account {
-        createSystemServiceAccount(label: "serv-acc", role: SYSTEM_ADMIN){
-                apiKey
-            roleBindings{
-                role
-            }
-        }
-    }
-    ```
-
-    Sample Response:
-    ```json
-    {
-        "data": {
-            "createSystemServiceAccount": {
-                "apiKey": "<GENERATED_TOKEN>",
-                "roleBindings": [
-                    {
-                        "role": "SYSTEM_ADMIN"
-                    }
-                ]
-            }
-        }
-    }
-    ```
-
-- Add the API token to the `.env` file `ASTRO_SOFTWARE_API_TOKEN=<GENERATED_TOKEN>`
-
 ## Output
 
-The command generates a comprehensive PDF report in the `output` directory with metrics as below for the given duration:
+The command generates a comprehensive DOCX report in the `output` directory with metrics as below for the given duration:
 
 - Scheduler CPU and Memory
 - Worker CPU and Memory
-- KPO’s CPU and Memory
+- KPO's CPU and Memory
 - Task Trends
 - Worker (_Celery/Kubernetes_) Pod Counts

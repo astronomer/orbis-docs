@@ -3,29 +3,39 @@
    <img src="docs/assets/orbis_logo.svg" width="50%" alt="Orbis Logo">
 </div>
 
-Orbis is a reporting tool designed for Astronomer Software that provides detailed insights into your Apache Airflow deployments. It collects and analyzes metrics to help you understand resource utilization, performance patterns, and system health.
+Orbis is a comprehensive toolkit designed for Astronomer Software that provides deployment reporting and diagnostic capabilities for your Apache Airflow deployments.
 
 ## Key Features
 
-- **Resource Metrics**: Track CPU usage, memory consumption, and resource allocation efficiency
-- **Performance Analysis**: Monitor task success/failure rates, processing trends, and execution latency
-- **System Health**: Get insights into scheduler health, worker status, and system availability
-- **Comprehensive Reports**: Generate detailed PDF reports with visualizations and statistics
+We currently support 2 main capabilities (with more coming in future releases):
+
+1. **Report Generation**: Comprehensive deployment metrics analysis including CPU usage, memory consumption, resource allocation efficiency, task success/failure rates, processing trends, and execution latency
+2. **Diagnostic Scanner**: Creates comprehensive support bundles containing Kubernetes cluster information, Astronomer deployment details, logs, and configurations for accelerated troubleshooting
 
 ## Quick Start
 
+### Report Generation
 ```bash
 # Pull the latest version
-docker pull quay.io/astronomer/orbis:0.7.0
+docker pull quay.io/astronomer/orbis:0.8.0
 
 # Run with environment variables
 docker run --pull always --rm -it \
   --env-file .env \
   -v $(pwd)/output:/app/output \
-  quay.io/astronomer/orbis:0.7.0 orbis compute-software \
+  quay.io/astronomer/orbis:0.8.0 orbis compute-software \
   -s START_DATE \
   -e END_DATE \
-  -o ORGANIZATION_ID
+  -b BASE_DOMAIN
+```
+
+### Diagnostic Scanner
+```bash
+# Create support bundle for troubleshooting
+docker run --pull always --rm -it \
+  -v $(pwd)/output:/app/output \
+  quay.io/astronomer/orbis:0.8.0 orbis scanner create \
+  -n astronomer --image quay.io/astronomer/orbis-scanner:0.8.0
 ```
 
 ## Documentation
