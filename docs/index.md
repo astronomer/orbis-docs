@@ -7,11 +7,13 @@ Orbis is a comprehensive toolkit developed by the Astronomer RDC Team for custom
 ## Key Features
 
 - **Report Generation**: Comprehensive deployment metrics analysis and resource utilization tracking
+  - **Multiple Output Formats**: DOCX reports, JSON data, and CSV exports
 - **Diagnostic Scanner**: Curates comprehensive diagnostic packages - the critical deliverable for accelerating Astronomer support engagement
-- **Custom Resource Support**: Custom resource allocation support
-- **Multiple Output Formats**: DOCX reports, JSON data, and CSV exports
+  - **Telescope Integration**: Advanced Airflow diagnostics
+  - **Custom Resource Support**: Custom resource allocation support
+
 - **Docker-based Deployment**: Easy setup and consistent behavior across environments
-- **Telescope Integration**: Advanced Airflow diagnostics
+
 
 ## Quick Start with Docker (Recommended)
 
