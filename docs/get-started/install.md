@@ -1,7 +1,7 @@
 ---
 title: "Install Orbis"
 slug: install-orbis
-description: "Install Orbis with Podman, pip, uv, or a release wheel."
+description: "Install Orbis with Podman, uv tool install, pip, or a release wheel."
 hide-nav-links: true
 hide-feedback: true
 ---
@@ -13,7 +13,7 @@ Choose one of the supported installation methods in this order. Astronomer recom
 | Method | Use this when |
 |---|---|
 | [Podman](#run-with-podman) | Recommended. You want zero local dependencies. |
-| [pip or uv](#install-with-pip-or-uv) | You want a local command on a workstation or bastion. |
+| [uv tool install or pip](#install-with-pip-or-uv) | You want a local command on a workstation or bastion. |
 | [Release wheel](#install-from-a-release-wheel) | You operate in an air-gapped or restricted environment and can provide the wheel plus dependencies. |
 
 ## Run with Podman
@@ -38,16 +38,18 @@ Reports and support bundles are written to `./output` on the host. For scanner c
 
 - Python 3.10 or later
 
-Install Orbis from PyPI with pip:
+**Recommended — `uv tool install`:**
+
+```bash
+uv tool install astronomer-orbis
+```
+
+`uv tool install` installs Orbis as a CLI tool and automatically adds it to your PATH. This is the correct uv command for tools — `uv pip install` does not add the `orbis` command to your PATH.
+
+Or install with `pip`:
 
 ```bash
 pip install astronomer-orbis
-```
-
-Or install with `uv`:
-
-```bash
-uv pip install astronomer-orbis
 ```
 
 Verify the installation:
