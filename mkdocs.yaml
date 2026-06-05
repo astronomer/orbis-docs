@@ -1,5 +1,7 @@
 site_name: Orbis Documentation
+site_description: Diagnostic and reporting tool for Astro Private Cloud
 docs_dir: docs
+
 theme:
     name: material
     features:
@@ -8,28 +10,24 @@ theme:
       - content.action.view
       - content.code.annotate
       - content.code.copy
-      # - content.code.select
-      # - content.footnote.tooltips
-      # - content.tabs.link
+      - content.code.select
       - content.tooltips
-      # - header.autohide
       - navigation.expand
       - navigation.footer
       - navigation.indexes
-      # - navigation.instant
-      # - navigation.instant.prefetch
-      # - navigation.instant.progress
-      # - navigation.prune
+      - navigation.instant
+      - navigation.instant.prefetch
+      - navigation.instant.progress
       - navigation.sections
       - navigation.tabs
       - navigation.tabs.sticky
-      # - navigation.top
+      - navigation.top
       - navigation.tracking
       - search.highlight
       - search.share
       - search.suggest
       - toc.follow
-      # - toc.integrate
+      - toc.integrate
 
     logo: assets/orbis_logo.png
     favicon: assets/orbis_icon.png
@@ -57,31 +55,60 @@ theme:
 
 nav:
   - Home: index.md
-  - Installation: installation.md
-  - Usage:
-    - Software Reports: usage/software_reports.md
-    - Software Diagnostics: usage/software_diagnostics.md
-  - Modules:
-    - API:
-      - Houston: modules/api/houston.md
-      - Prometheus: modules/api/prometheus.md
-    - Report:
-      - Generator: modules/report/generator.md
-      - Visualizer: modules/report/visualizer.md
-      - CSV Generator: modules/report/csv_generator.md
-    - Models: modules/data_models.md
-  - Reports: reports.md
+  - Get started:
+    - Install orbis: get-started/install.md
+    - Configure orbis: get-started/configure.md
+  - Reporting:
+    - Generate a compute report: reporting/generate-report.md
+    - Report CLI reference: reporting/cli-reference.md
+    - Manual Prometheus diagnostics: reporting/manual-prometheus-diagnostics.md
+  - Scanner:
+    - Create a support bundle: scanner/create-support-bundle.md
+    - Collect from multi-cluster environments: scanner/multi-cluster-guide.md
+    - Resume and merge sessions: scanner/resume-sessions.md
+    - Scanner CLI reference: scanner/cli-reference.md
+  - Changelog: changelog.md
 
 plugins:
-  - search
-  - mkdocstrings:
-      handlers:
-        python:
-          options:
-            extra:
-              setup_commands:
-                - import sys
-                - sys.path.append("src")
+  - search:
+      separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+  - exclude:
+      glob:
+        - development/*
+        - legacy/*
+        - reference/*
+        - reporting/kubernetes-pod-metrics.md
+  - minify:
+      minify_html: true
+      minify_js: true
+      minify_css: true
+      htmlmin_opts:
+        remove_comments: true
+  - glightbox:
+      touchNavigation: true
+      loop: false
+      effect: zoom
+      slide_effect: slide
+      width: 100%
+      height: auto
+      zoomable: true
+      draggable: true
+      auto_caption: false
+      caption_position: bottom
+  - macros
+  - redirects:
+      redirect_maps:
+        installation.md: get-started/install.md
+        configuration.md: get-started/configure.md
+        usage/software_reports.md: reporting/generate-report.md
+        usage/software_reporting.md: reporting/generate-report.md
+        usage/software_diagnostics.md: scanner/create-support-bundle.md
+        cli.md: scanner/cli-reference.md
+        cli/report.md: reporting/cli-reference.md
+        cli/scanner.md: scanner/cli-reference.md
+        multi-cluster-guide.md: scanner/multi-cluster-guide.md
+        reports.md: reporting/generate-report.md
+
 markdown_extensions:
   - abbr
   - admonition
@@ -106,16 +133,8 @@ markdown_extensions:
       pygments_lang_class: true
   - pymdownx.inlinehilite
   - pymdownx.keys
-  - pymdownx.magiclink:
-      normalize_issue_symbols: true
-      repo_url_shorthand: true
-      user: squidfunk
-      repo: mkdocs-material
   - pymdownx.mark
   - pymdownx.smartsymbols
-  - pymdownx.snippets:
-      auto_append:
-        - includes/mkdocs.md
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
@@ -132,6 +151,7 @@ markdown_extensions:
   - pymdownx.tilde
 
 extra:
+  is_external: true
   palette:
     - scheme: default
       toggle:

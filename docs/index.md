@@ -1,73 +1,100 @@
+---
+title: "Orbis"
+slug: /
+description: "Use Orbis to collect diagnostics and generate compute reports for Astro Private Cloud."
+hide-nav-links: true
+hide-feedback: true
+---
+
 # Orbis
 
 ![Orbis Logo](assets/orbis_logo.png){width=50% height=auto}
 
-Orbis is a comprehensive toolkit developed by the Astronomer RDC Team for customer success operations. It provides deployment reporting, resource analysis, and diagnostic capabilities for Astronomer Software deployments.
+Orbis is a diagnostic and reporting tool for Astronomer platforms. It collects support bundles from Kubernetes clusters and generates deployment compute reports.
 
-## Key Features
+Orbis collects metrics from Prometheus and deployment metadata from the Houston API to analyze Astro Private Cloud (APC) environments.
 
-- **Report Generation**: Comprehensive deployment metrics analysis and resource utilization tracking
-    - **Multiple Output Formats**: DOCX reports, JSON data, and CSV exports
+## Get started
 
-- **Diagnostic Scanner**: Curates comprehensive diagnostic packages - the critical deliverable for accelerating Astronomer support engagement
-    - **Telescope Integration**: Advanced Airflow diagnostics
-    - **Custom Resource Support**: Custom resource allocation support
+- [Install Orbis](get-started/install.md)
+- [Configure Orbis](get-started/configure.md)
 
-- **Docker-based Deployment**: Easy setup and consistent behavior across environments
+## Generate reports
 
+- [Generate a compute report](reporting/generate-report.md)
+- [Manual Prometheus diagnostics](reporting/manual-prometheus-diagnostics.md)
 
-## Quick Start with Docker (Recommended)
+## Collect diagnostics
 
-### For Report Generation
+- [Create a support bundle](scanner/create-support-bundle.md)
+- [Collect from multi-cluster environments](scanner/multi-cluster-guide.md)
+- [Resume and merge sessions](scanner/resume-sessions.md)
 
-1. Create a `.env` file with your configuration:
-   ```env
-   ASTRO_SOFTWARE_API_TOKEN=your_token_here
-   ```
-!!! warning
+## How it works
 
-       Please use `SYSTEM_ADMIN` level token otherwise Orbis won't be able to query Prometheus and will result in empty metrics. [Ref](usage/software_reports.md#generate-system-admin-level-api-token)
+### Reporting
 
-2. Run Orbis using Docker:
-   ```bash
-   docker run --pull always --rm -it \
-     --env-file .env \
-     -v $(pwd)/output:/app/output \
-     quay.io/astronomer/orbis:0.8.0 orbis compute-software \
-     -s START_DATE \
-     -e END_DATE \
-     -b BASE_DOMAIN \
-     [-v] [-w WORKSPACES] [-z] [-r] [-p]
-   ```
+```mermaid
+graph LR
+    CLI["orbis command<br/><code>reporting</code>"]
+    HOUSTON["Houston API<br/><small>GraphQL</small>"]
+    PROM["Prometheus<br/><small>PromQL</small>"]
+    GEN["Report generator"]
+    OUT["DOCX · CSV · JSON"]
 
-### For Diagnostic Scanner
+    CLI -->|"fetch deployment<br/>metadata"| HOUSTON
+    CLI -->|"fetch CPU, memory,<br/>task metrics"| PROM
+    HOUSTON --> GEN
+    PROM --> GEN
+    GEN -->|"visualize &<br/>package"| OUT
 
-Create support bundle for troubleshooting:
-
-```bash
-docker run --pull always --rm -it \
-  -v $(pwd)/output:/app/output \
-  quay.io/astronomer/orbis:0.8.0 orbis scanner create \
-  -n astronomer --image quay.io/astronomer/orbis-scanner:0.8.0
+    linkStyle 0 stroke:#00e5ff,color:#00e5ff
+    linkStyle 1 stroke:#00e5ff,color:#00e5ff
+    linkStyle 2 stroke:#00e5ff,color:#00e5ff
+    linkStyle 3 stroke:#00e5ff,color:#00e5ff
+    linkStyle 4 stroke:#00e5ff,color:#00e5ff
 ```
 
-## Documentation Sections
+### Scanner (support bundle)
 
-- [Installation](installation.md)
-- Usage
-    - [Software Reports](usage/software_reports.md) - Report generation
-    - [Software Diagnostics](usage/software_diagnostics.md) - Scanner support bundles
-- Modules
-    - API
-        - [Houston](modules/api/houston.md)
-        - [Prometheus](modules/api/prometheus.md)
-    - Report
-        - [Generator](modules/report/generator.md)
-        - [Visualizer](modules/report/visualizer.md)
-        - [CSV Generator](modules/report/csv_generator.md)
-    - [Data Models](modules/data_models.md)
-- [Reports](reports.md)
+```mermaid
+graph LR
+    CLI2["orbis command<br/><code>scanner create</code>"]
+    DISC["Houston API<br/><small>discover topology</small>"]
+    CP["Control plane cluster<br/><small>scanner pod</small>"]
+    DP["Data plane cluster(s)<br/><small>scanner pod</small>"]
+    MERGE["Merge &<br/>package"]
+    BUNDLE["support-bundle.tar.gz"]
 
-## Support
+    CLI2 -->|"discover<br/>split topology"| DISC
+    CLI2 -->|"create RBAC +<br/>Job"| CP
+    CLI2 -->|"create RBAC +<br/>Job"| DP
+    CP -->|"kubectl, helm,<br/>telescope"| MERGE
+    DP -->|"kubectl, helm,<br/>telescope"| MERGE
+    MERGE --> BUNDLE
 
-For support, please contact [success@astronomer.io](mailto:success@astronomer.io)
+    linkStyle 0 stroke:#00e5ff,color:#00e5ff
+    linkStyle 1 stroke:#00e5ff,color:#00e5ff
+    linkStyle 2 stroke:#00e5ff,color:#00e5ff
+    linkStyle 3 stroke:#00e5ff,color:#00e5ff
+    linkStyle 4 stroke:#00e5ff,color:#00e5ff
+    linkStyle 5 stroke:#00e5ff,color:#00e5ff
+```
+
+The reporting flow queries the Houston API for deployment metadata and Prometheus for time-series metrics, then generates visualizations and packages results into DOCX, CSV, and JSON files.
+
+The scanner flow discovers the APC cluster topology from Houston, creates scanner pods on the control plane and data plane clusters through Kubernetes jobs, collects diagnostic data using kubectl, Helm, and telescope, and merges everything into a single support bundle.
+
+{% if not config.extra.is_external %}
+## Development
+
+- [Set up local development](development/local-development-setup.md)
+- [Contribute to orbis](development/contributing.md)
+- [Build the documentation](development/building_docs.md)
+- [Build the container image](development/docker-build.md)
+- [Release process](development/release-process.md)
+{% endif %}
+
+## Changelog
+
+See the [changelog](changelog.md) for release history.
