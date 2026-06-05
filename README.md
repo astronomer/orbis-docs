@@ -14,23 +14,28 @@ Orbis is a diagnostic and reporting tool for Astro Private Cloud (formerly Astro
 
 ### Report Generation
 ```bash
-docker run --pull always --rm -it \
+echo "ASTRO_SOFTWARE_API_TOKEN=<your-token>" > .env && mkdir -p output
+podman run --rm -it \
   --env-file .env \
   -v $(pwd)/output:/app/output \
-  quay.io/astronomer/orbis:0.8.0 orbis compute-software \
-  -s START_DATE \
-  -e END_DATE \
-  -b BASE_DOMAIN
+  quay.io/astronomer/orbis:<orbis-version> \
+  reporting \
+  -s <start-date> \
+  -e <end-date> \
+  -b <base-domain>
 ```
 
 ### Diagnostic Scanner
 ```bash
-docker run --pull always --rm -it \
+podman run --rm -it \
+  -e ASTRO_SOFTWARE_API_TOKEN=<your-token> \
+  -v <path-to-kubeconfig>:/tmp/kubeconfig:ro \
   -v $(pwd)/output:/app/output \
-  -v ~/.kube:/root/.kube:ro \
-  quay.io/astronomer/orbis:0.8.0 orbis scanner create \
-  -n astronomer \
-  --image quay.io/astronomer/orbis-scanner:0.8.0
+  quay.io/astronomer/orbis:<orbis-version> \
+  scanner create \
+  -n <platform-namespace> \
+  --kubeconfig /tmp/kubeconfig \
+  --image quay.io/astronomer/orbis:<orbis-version>
 ```
 
 ## Documentation
