@@ -47,7 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 * Fixed Houston `rollbackEnabled` usage removed from the APC 2.x schema.
 * Fixed scanner Kubernetes client usage so RBAC and job managers use the configured API client.
-* Fixed scanner image issues for `click`, telescope virtual environment creation, kubeconfig paths, empty base domains, working folder restoration, and absolute tar paths.
+* Fixed scanner image issues for `click`, kubeconfig paths, empty base domains, working folder restoration, and absolute tar paths.
 * Fixed scanner subprocess safety and redacted authentication tokens from logs.
 * Fixed scanner infrastructure setup, `/data` volume mounting, and fixed support bundle filename handling.
 * Fixed multi-cluster scanner execution for discovered DPs without kubeconfig values.
@@ -55,6 +55,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Fixed data collector linting and formatting issues.
 
 ### Removed
+* **Removed telescope integration.** [Telescope](https://github.com/astronomer/telescope) is no longer maintained, so it is no longer installed in the Orbis image and no longer invoked during scanner collection. The `--telescope`, `--telescope-only`, and `--telescope-executor` options are gone from the in-cluster data collector, and support bundles no longer contain a `telescope_report/` directory. Everything the scanner collects now comes from `kubectl` and Helm. Remove these flags from any saved scanner command or automation before upgrading.
 * Removed the stale scanner-image test path from CI after scanner packaging changed.
 
 ## [0.8.0] - 2025-08-04

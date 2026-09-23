@@ -69,8 +69,8 @@ graph LR
     CLI2 -->|"discover<br/>split topology"| DISC
     CLI2 -->|"create RBAC +<br/>Job"| CP
     CLI2 -->|"create RBAC +<br/>Job"| DP
-    CP -->|"kubectl, helm,<br/>telescope"| MERGE
-    DP -->|"kubectl, helm,<br/>telescope"| MERGE
+    CP -->|"kubectl, helm"| MERGE
+    DP -->|"kubectl, helm"| MERGE
     MERGE --> BUNDLE
 
     linkStyle 0 stroke:#00e5ff,color:#00e5ff
@@ -83,7 +83,7 @@ graph LR
 
 The reporting flow queries the Houston API for deployment metadata and Prometheus for time-series metrics, then generates visualizations and packages results into DOCX, CSV, and JSON files.
 
-The scanner flow discovers the APC cluster topology from Houston, creates scanner pods on the control plane and data plane clusters through Kubernetes jobs, collects diagnostic data using kubectl, Helm, and telescope, and merges everything into a single support bundle.
+The scanner flow discovers the APC cluster topology from Houston, creates scanner pods on the control plane and data plane clusters through Kubernetes jobs, collects diagnostic data using kubectl and Helm, and merges everything into a single support bundle.
 
 {% if not config.extra.is_external %}
 ## Development
